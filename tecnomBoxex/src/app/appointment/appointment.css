@@ -1,5 +1,44 @@
-.btn-tecnom-sub{
-    background-color: #301b5a;
-    color:FFFFFF;
-    border-radius: 999px;
+.btn-tecnom {
+    background: linear-gradient(135deg, #301b5a 0%, #6b3fa0 100%);
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.btn-tecnom:hover {
+    background: linear-gradient(135deg, #241447 0%, #5a2d8a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(48, 27, 90, 0.3);
+}
+
+.btn-tecnom:active {
+    transform: translateY(0);
+}
+
+.btn-tecnom:disabled {
+    background: linear-gradient(135deg, #5a4a7a 0%, #7a6a9a 100%);
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.6;
+}
+
+/* Mejoras adicionales para el formulario */
+.form-control:focus,
+.form-select:focus {
+    border-color: #301b5a;
+    box-shadow: 0 0 0 0.2rem rgba(48, 27, 90, 0.15);
+}
+
+fieldset {
+    border-color: #e0e4e9;
+    background: #fafbfc;
+}
+
+fieldset legend {
+    color: #301b5a;
+    font-weight: 600;
+    background: white;
 }

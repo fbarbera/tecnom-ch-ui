@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { WorkshopService } from '../services/workshop.service';
 import { AppointmentsService } from '../services/appointment.service';
 import { Workshop } from '../entities/workshop.entity';
-import { AbstractControl } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-appointment',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './appointment.html',
-  styles: ['./appointment.css']
+  styleUrl: './appointment.css'
 })
 export class Appointment implements OnInit {
   form: FormGroup;

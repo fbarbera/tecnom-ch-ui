@@ -8,14 +8,13 @@
     <div id="navbarNav" class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/appointments" routerLinkActive="active">Turnos</a>
+          <a class="nav-link" routerLink="/appointments" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Turnos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/appointments/new" routerLinkActive="active">Nuevo Turno</a>
+          <a class="nav-link" routerLink="/appointment/new" routerLinkActive="active">Nuevo Turno</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 <router-outlet></router-outlet>
-

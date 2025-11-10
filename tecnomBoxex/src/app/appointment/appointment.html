@@ -1,95 +1,112 @@
 <div class="container mt-4">
-    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-    <form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h4 class="mb-3">Nuevo Turno</h4>
+      
+      <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+      
+      <form [formGroup]="form" (ngSubmit)="submit()">
         <!-- Taller -->
         <div class="mb-3">
-            <label class="form-label">Taller</label>
-            <select class="form-select" formControlName="place_id">
-                <option value="">Seleccione...</option>
-                <option *ngFor="let t of workshops" [value]="t.id">{{ t.name }}</option>
-            </select>
-            <div class="text-danger"
-                *ngIf="form.controls['place_id'] && form.controls['place_id'].invalid && (form.controls['place_id'].touched || submitted)">
-                Requerido
-            </div>
+          <label class="form-label">Taller</label>
+          <select class="form-select" formControlName="place_id">
+            <option value="">Seleccione...</option>
+            <option *ngFor="let t of workshops" [value]="t.id">{{ t.name }}</option>
+          </select>
+          <div class="text-danger"
+            *ngIf="form.controls['place_id'] && form.controls['place_id'].invalid && (form.controls['place_id'].touched || submitted)">
+            Requerido
+          </div>
         </div>
 
         <!-- Fecha y hora -->
-        <div class="mb-3 col-md-3">
-            <label class="form-label">Fecha y hora</label>
-            <input type="datetime-local" class="form-control" formControlName="appointment_at">
-            <div class="text-danger"
-                *ngIf="form.controls['appointment_at'] && form.controls['appointment_at'].invalid && (form.controls['appointment_at'].touched || submitted)">
-                Requerido
-            </div>
+        <div class="mb-3">
+          <label class="form-label">Fecha y hora</label>
+          <input type="datetime-local" class="form-control" formControlName="appointment_at">
+          <div class="text-danger"
+            *ngIf="form.controls['appointment_at'] && form.controls['appointment_at'].invalid && (form.controls['appointment_at'].touched || submitted)">
+            Requerido
+          </div>
         </div>
 
         <!-- Tipo de servicio -->
         <div class="mb-3">
-            <label class="form-label">Tipo de servicio</label>
-            <input type="text" class="form-control" formControlName="service_type" required>
-            <div class="text-danger"
-                *ngIf="form.controls['service_type'] && form.controls['service_type'].invalid && (form.controls['service_type'].touched || submitted)">
-                Requerido
-            </div>
+          <label class="form-label">Tipo de servicio</label>
+          <input type="text" class="form-control" formControlName="service_type" required>
+          <div class="text-danger"
+            *ngIf="form.controls['service_type'] && form.controls['service_type'].invalid && (form.controls['service_type'].touched || submitted)">
+            Requerido
+          </div>
         </div>
 
         <!-- Contacto -->
-        <fieldset class="border p-3 mb-3">
-            <legend class="float-none w-auto px-2 fs-6">Datos de Contacto</legend>
-            <div formGroupName="contact">
-                <div class="mb-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" formControlName="name" required>
-                    <div class="text-danger"
-                        *ngIf="form.get('contact.name') && form.get('contact.name')!.invalid && (form.get('contact.name')!.touched || submitted)">
-                        Requerido
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" formControlName="email" required>
-                    <div class="text-danger"
-                        *ngIf="form.get('contact.email') && form.get('contact.email')!.invalid && (form.get('contact.email')!.touched || submitted)">
-                        Requerido y debe ser un email válido
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" formControlName="phone">
-                </div>
+        <fieldset class="border p-3 mb-3 rounded">
+          <legend class="float-none w-auto px-2 fs-6 fw-bold">Datos de Contacto</legend>
+          <div formGroupName="contact">
+            <div class="mb-3">
+              <label class="form-label">Nombre y Appelido</label>
+              <input type="text" class="form-control" formControlName="name" required>
+              <div class="text-danger"
+                *ngIf="form.get('contact.name') && form.get('contact.name')!.invalid && (form.get('contact.name')!.touched || submitted)">
+                Requerido
+              </div>
             </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" formControlName="email" required>
+              <div class="text-danger"
+                *ngIf="form.get('contact.email') && form.get('contact.email')!.invalid && (form.get('contact.email')!.touched || submitted)">
+                Requerido y debe ser un email válido
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Teléfono</label>
+              <input type="tel" class="form-control" formControlName="phone">
+            </div>
+          </div>
         </fieldset>
 
         <!-- Vehículo (opcional) -->
-        <fieldset class="border p-3 mb-3">
-            <legend class="float-none w-auto px-2 fs-6">Vehículo (opcional)</legend>
-            <div formGroupName="vehicle">
-                <div class="row g-2">
-                    <select class="form-select" formControlName="make">
-                        <option value="">Seleccione marca...</option>
-                        <option *ngFor="let brand of carBrands" [value]="brand">{{ brand }}</option>
-                    </select>
-                    <div class="col-md-6 mb-2">
-                        <input placeholder="Modelo" class="form-control" formControlName="model">
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <input placeholder="Año" type="number" class="form-control" formControlName="year" min="1920"
-                            max="2099" step="1">
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <input placeholder="Patente" class="form-control" formControlName="license_plate">
-                    </div>
-                </div>
+        <fieldset class="border p-3 mb-3 rounded">
+          <legend class="float-none w-auto px-2 fs-6 fw-bold">Vehículo (opcional)</legend>
+          <div formGroupName="vehicle">
+            <div class="mb-3">
+              <label class="form-label">Marca</label>
+              <select class="form-select" formControlName="make">
+                <option value="">Seleccione marca...</option>
+                <option *ngFor="let brand of carBrands" [value]="brand">{{ brand }}</option>
+              </select>
             </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Modelo</label>
+                <input placeholder="Modelo" class="form-control" formControlName="model">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Año</label>
+                <input placeholder="Año" type="number" class="form-control" formControlName="year" min="1920"
+                  max="2099" step="1">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Patente</label>
+              <input placeholder="Patente" class="form-control" formControlName="license_plate">
+            </div>
+          </div>
         </fieldset>
 
         <!-- Botones -->
-        <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-tecnom-sub">Crear Turno</button>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-tecnom" [disabled]="loading">
+            <span *ngIf="!loading">Crear Turno</span>
+            <span *ngIf="loading">
+              <span class="spinner-border spinner-border-sm me-2"></span>
+              Creando...
+            </span>
+          </button>
         </div>
-
-
-    </form>
+      </form>
+    </div>
+  </div>
 </div>

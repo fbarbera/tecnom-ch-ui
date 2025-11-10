@@ -5,5 +5,5 @@ import { Appointment } from './appointment/appointment';
 export const routes: Routes = [
   { path: '', redirectTo: 'appointments', pathMatch: 'full' },
   { path: 'appointments', component: AppointmentList },
-  { path: 'appointments/new', component: Appointment }
+  { path: 'appointment/new', component: Appointment }, 
 ];
