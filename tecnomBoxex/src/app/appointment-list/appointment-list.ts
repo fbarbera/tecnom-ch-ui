@@ -4,6 +4,7 @@ import { AppointmentsService } from '../services/appointment.service';
 import { Appointment } from '../entities/appointment.entity';
 
 @Component({
+  standalone: true,
   selector: 'app-appointment-list',
   imports: [CommonModule],
   templateUrl: './appointment-list.html',

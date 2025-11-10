@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule  } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WorkshopService } from '../services/workshop.service';
 import { AppointmentsService } from '../services/appointment.service';
 import { Workshop } from '../entities/workshop.entity';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
+  standalone: true,
   selector: 'app-appointment',
-  imports: [CommonModule, ReactiveFormsModule ],
-  templateUrl: './appointment.html'
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './appointment.html',
+  styles: ['./appointment.css']
 })
 export class Appointment implements OnInit {
   form: FormGroup;
@@ -16,6 +19,13 @@ export class Appointment implements OnInit {
   loading = false;
   successMessage = '';
   errorMessage = '';
+  carBrands: string[] = [
+    'Toyota', 'Volkswagen', 'Ford', 'Chevrolet', 'Fiat',
+    'Renault', 'Peugeot', 'Nissan', 'Honda', 'Citroën',
+    'Jeep', 'Hyundai', 'Kia', 'Mercedes-Benz', 'BMW',
+    'Audi', 'Suzuki', 'Chery', 'Mitsubishi', 'Dongfeng'
+  ];
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +58,7 @@ export class Appointment implements OnInit {
   }
 
   submit() {
+    this.submitted = true;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
