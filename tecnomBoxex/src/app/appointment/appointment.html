@@ -1,0 +1,82 @@
+<div class="container mt-4">
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <!-- Taller -->
+        <div class="mb-3">
+            <label class="form-label">Taller</label>
+            <select class="form-select" formControlName="place_id">
+                <option value="">Seleccione...</option>
+                <option *ngFor="let t of workshops" [value]="t.id">{{ t.name }}</option>
+            </select>
+            <!--<div class="text-danger" *ngIf="form.get('place_id').touched && form.get('place_id').hasError('required')">
+        Requerido
+      </div>-->
+        </div>
+
+        <!-- Fecha y hora -->
+        <div class="mb-3 col-md-3">
+            <label class="form-label">Fecha y hora</label>
+            <input type="datetime-local" class="form-control" formControlName="appointment_at">
+            <!--<div class="text-danger" *ngIf="form.get('appointment_at').touched && form.get('appointment_at').hasError('required')">
+        Requerido
+      </div>-->
+        </div>
+
+        <!-- Tipo de servicio -->
+        <div class="mb-3">
+            <label class="form-label">Tipo de servicio</label>
+            <input type="text" class="form-control" formControlName="service_type">
+            <!--<div class="text-danger" *ngIf="form.get('service_type').touched && form.get('service_type').hasError('required')">
+        Requerido
+      </div>-->
+        </div>
+
+        <!-- Contacto -->
+        <fieldset class="border p-3 mb-3">
+            <legend class="float-none w-auto px-2 fs-6">Datos de Contacto</legend>
+            <div formGroupName="contact">
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" formControlName="email">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" formControlName="phone">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Vehículo (opcional) -->
+        <fieldset class="border p-3 mb-3">
+            <legend class="float-none w-auto px-2 fs-6">Vehículo (opcional)</legend>
+            <div formGroupName="vehicle">
+                <div class="row g-2">
+                    <div class="col-md-6 mb-2">
+                        <input placeholder="Marca" class="form-control" formControlName="make">
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <input placeholder="Modelo" class="form-control" formControlName="model">
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <input placeholder="Año" type="number" class="form-control" formControlName="year">
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <input placeholder="Patente" class="form-control" formControlName="license_plate">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Crear Turno</button>
+        </div>
+
+
+    </form>
+</div>
