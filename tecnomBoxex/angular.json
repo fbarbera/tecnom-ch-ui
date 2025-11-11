@@ -65,6 +65,10 @@
               "buildTarget": "tecnomBoxex:build:development"
             }
           },
+          "options": {
+            "port": 4200,
+            "host": "localhost"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {

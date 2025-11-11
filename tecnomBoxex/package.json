@@ -1,13 +1,14 @@
 {
   "name": "tecnom-boxex",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4200",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:tecnomBoxex": "node dist/tecnomBoxex/server/server.mjs"
+    "serve:ssr:tecnomBoxex": "node dist/tecnomBoxex/server/server.mjs",
+    "dev": "ng serve --port 4200 --open"
   },
   "prettier": {
     "printWidth": 100,
