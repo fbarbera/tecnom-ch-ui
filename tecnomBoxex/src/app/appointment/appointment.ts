@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WorkshopService } from '../services/workshop.service';
 import { AppointmentsService } from '../services/appointment.service';
 import { Workshop } from '../entities/workshop.entity';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   standalone: true,
@@ -25,11 +28,14 @@ export class Appointment implements OnInit {
     'Audi', 'Suzuki', 'Chery', 'Mitsubishi', 'Dongfeng'
   ];
   submitted = false;
+  private routerSub?: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private ws: WorkshopService,
     private apptSvc: AppointmentsService
+  , private router: Router
+  , private route: ActivatedRoute
   ) {
     this.form = this.fb.nonNullable.group({
       place_id: [null, Validators.required],
@@ -50,8 +56,27 @@ export class Appointment implements OnInit {
   }
 
   ngOnInit() {
+    // If resolver provided workshops, use them, otherwise request
+    const data = this.route.snapshot.data as { workshops?: Workshop[] };
+    if (data.workshops) {
+      this.workshops = data.workshops;
+    } else {
+      this.loadWorkshops();
+    }
+
+    // ensure workshops are reloaded after navigation (routerLink clicks)
+    this.routerSub = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => this.loadWorkshops());
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
+  }
+
+  private loadWorkshops() {
     this.ws.list().subscribe({
-      next: (data) => this.workshops = data,
+      next: (data) => {
+        this.workshops = data;
+      },
       error: (err) => this.errorMessage = 'Error obteniendo talleres'
     });
   }
